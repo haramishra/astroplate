@@ -2,8 +2,9 @@ import { marked } from "marked";
 import React, { useEffect, useRef, useState } from "react";
 
 marked.use({
-  mangle: false,
-  headerIds: false,
+  async: true,
+  pedantic: false,
+  gfm: true,
 });
 
 const Tabs = ({ children }: { children: React.ReactElement }) => {
