@@ -1,12 +1,6 @@
 import { marked } from "marked";
 import React, { useEffect, useRef, useState } from "react";
 
-marked.use({
-  async: true,
-  pedantic: false,
-  gfm: true,
-});
-
 const Tabs = ({ children }: { children: React.ReactElement }) => {
   const [active, setActive] = useState<number>(0);
   const [defaultFocus, setDefaultFocus] = useState<boolean>(false);
