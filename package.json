@@ -23,6 +23,7 @@
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource-variable/heebo": "^5.0.17",
     "@fontsource-variable/signika": "^5.0.18",
+    "animate.css": "^4.1.1",
     "astro": "^4.3.5",
     "astro-auto-import": "^0.4.2",
     "date-fns": "^3.0.6",
