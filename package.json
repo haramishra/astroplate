@@ -4,7 +4,7 @@
   "description": "Astro and Tailwindcss boilerplate",
   "author": "zeon.studio",
   "license": "MIT",
-  "packageManager": "yarn@1.22.19",
+  "packageManager": "yarn@4.1.1",
   "scripts": {
     "dev": "yarn generate-json && astro dev",
     "build": "astro check && yarn generate-json && astro build",
