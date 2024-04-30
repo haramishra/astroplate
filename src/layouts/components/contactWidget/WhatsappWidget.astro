@@ -1,0 +1,164 @@
+---
+import DynamicIcon from "@/helpers/DynamicIcon";
+import { getEntry } from "astro:content";
+
+interface ChatWidgetData {
+  title: string;
+  button_text: string;
+  subtitle: string;
+  image: string;
+  messages: string[];
+  input_placeholder: string;
+  number: string;
+}
+
+const widgetContent = await getEntry("misc", "-wa-chat-widget");
+const {
+  title,
+  subtitle,
+  messages,
+  input_placeholder,
+  number,
+  button_text,
+  image,
+}: ChatWidgetData = widgetContent.data;
+---
+
+<div class="fixed bottom-10 right-10 z-50">
+  <div class="grid justify-items-end">
+    <div
+      class="max-w-xs rounded-lg shadow-lg bg-white mb-5 hidden transition-all"
+      id="wa-chat-element"
+    >
+      <div
+        class="flex items-center justify-between p-3 border-b bg-green-700 rounded-t-lg"
+      >
+        <span
+          class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"
+          ><span
+            class="flex h-full w-full items-center justify-center rounded-full bg-muted"
+            >KS</span
+          ></span
+        ><div>
+          <p class="text-lg font-semibold text-white" set:html={title} />
+          <p class="text-xs text-gray-300" set:html={subtitle} />
+        </div>
+        <button class="text-white p-2 ml-2" id="close-chat-widget">
+          <DynamicIcon icon="RiCloseLine" size="20" />
+        </button>
+      </div><div class="p-3 bg-[#e5ddd5]">
+        <div
+          dir="ltr"
+          class="relative overflow-hidden h-48 w-full rounded-md"
+          style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
+        >
+          <style>
+            [data-radix-scroll-area-viewport] {
+              scrollbar-width: none;
+              -ms-overflow-style: none;
+              -webkit-overflow-scrolling: touch;
+            }
+            [data-radix-scroll-area-viewport]::-webkit-scrollbar {
+              display: none;
+            }
+          </style><div
+            data-radix-scroll-area-viewport=""
+            class="h-full w-full rounded-[inherit]"
+            style="overflow: hidden;"
+          >
+            <div style="min-width: 100%; display: table;">
+              <div class="space-y-2">
+                <div class="flex items-end justify-start">
+                  <div class="space-y-1">
+                    {
+                      messages.map((message) => (
+                        <div class="max-w-xs w-fit px-4 py-2 rounded-lg rounded-bl-none bg-white text-sm text-dark">
+                          <p class="" set:html={message} />
+                        </div>
+                      ))
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form id="whatsappForm">
+        <div class="flex items-center p-3 gap-3">
+          <input
+            required
+            name="text"
+            id="message"
+            class="flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 flex-1"
+            placeholder={input_placeholder
+              ? input_placeholder
+              : "Write a response"}
+          />
+          <button class="hover:opacity-80">
+            <DynamicIcon
+              icon="RiSendPlane2Fill"
+              className="text-text h-6 w-6"
+            />
+          </button>
+        </div>
+      </form>
+    </div>
+    <div
+      id="wa-button"
+      class="flex w-fit hover:cursor-pointer justify-center items-center gap-3 bg-primary shadow-lg dark:bg-darkmode-primary rounded-full px-4 py-2 h6 dark:text-dark text-darkmode-dark"
+    >
+      <div>
+        <DynamicIcon icon="RiWhatsappLine" className="text-green-500 h-6 w-6" />
+      </div>
+      <div set:html={button_text} />
+    </div>
+  </div>
+</div>
+
+<script>
+  function init() {
+    function redirectToWhatsApp() {
+      const message: string = (
+        document.getElementById("message") as HTMLInputElement
+      ).value;
+      const waNumber = "918018849775";
+      const waUrlWeb = `https://web.whatsapp.com/send?phone=${waNumber}&text=${message}`;
+      const waUrl = `https://wa.me/${waNumber}?text=${message}`;
+
+      console.log(message);
+
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+      if (isMobile) {
+        // Redirect to WhatsApp app on mobile devices
+        window.open(encodeURI(waUrl), "_blank");
+      } else {
+        // Redirect to WhatsApp Web on desktop/laptop devices
+        window.open(encodeURI(waUrlWeb), "_blank");
+      }
+    }
+
+    const form = document.getElementById("whatsappForm");
+
+    form?.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+
+      redirectToWhatsApp();
+    });
+
+    const waChatElement = document.getElementById("wa-chat-element");
+    const closeChatWidget = document.getElementById("close-chat-widget");
+    const waButton = document.getElementById("wa-button");
+
+    const toggleChatWidget = () => {
+      // waChatElement?.classList.toggle("opacity-0");
+      waChatElement?.classList.toggle("hidden");
+    };
+
+    closeChatWidget?.addEventListener("click", toggleChatWidget);
+    waButton?.addEventListener("click", toggleChatWidget);
+  }
+  init();
+  document.addEventListener("astro:after-swap", init);
+</script>
