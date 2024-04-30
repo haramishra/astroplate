@@ -4,6 +4,7 @@
   "description": "Astro and Tailwindcss boilerplate",
   "author": "zeon.studio",
   "license": "MIT",
+  "packageManager": "yarn@4.1.1",
   "scripts": {
     "dev": "yarn generate-json && astro dev",
     "build": "astro check && yarn generate-json && astro build",
@@ -14,17 +15,17 @@
     "type-check": "astro check"
   },
   "dependencies": {
-    "@astrojs/check": "^0.5.2",
-    "@astrojs/mdx": "^2.0.3",
-    "@astrojs/react": "^3.0.10",
+    "@astrojs/check": "^0.5.10",
+    "@astrojs/mdx": "^2.3.1",
+    "@astrojs/react": "^3.3.1",
     "@astrojs/rss": "^4.0.5",
-    "@astrojs/sitemap": "^3.0.4",
+    "@astrojs/sitemap": "^3.1.4",
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource-variable/heebo": "^5.0.17",
     "@fontsource-variable/signika": "^5.0.18",
     "@tawk.to/tawk-messenger-react": "^2.0.2",
     "animate.css": "^4.1.1",
-    "astro": "^4.3.5",
+    "astro": "^4.7.0",
     "astro-auto-import": "^0.4.2",
     "date-fns": "^3.0.6",
     "disqus-react": "^1.1.5",
@@ -60,6 +61,5 @@
     "tailwind-bootstrap-grid": "^5.1.0",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.3.3"
-  },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  }
 }
